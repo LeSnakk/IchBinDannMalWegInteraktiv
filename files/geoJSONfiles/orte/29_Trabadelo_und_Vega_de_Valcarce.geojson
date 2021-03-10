@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "33_Trabadelo_und_Vega_de_Valcarce",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 29 }, "geometry": { "type": "Point", "coordinates": [ -6.880580638171764, 42.649359675687897 ] } },
+{ "type": "Feature", "properties": { "id": 29 }, "geometry": { "type": "Point", "coordinates": [ -6.941441602310463, 42.663848353691002 ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "10_Santo_Domingo_de_la_Calzada",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 9 }, "geometry": { "type": "Point", "coordinates": [ -2.953387101067491, 42.439940353312451 ] } }
+]
+}

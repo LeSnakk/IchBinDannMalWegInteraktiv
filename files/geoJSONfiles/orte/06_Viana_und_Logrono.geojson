@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "06_Viana_und_Logrono",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 6, "layer": "05_Viana", "path": "E:\/university\/Eide\/OwnProject\/CaminoFrancesProject\/web_area\/xampp\/htdocs\/website\/files\/geoJSONfiles\/orte\/05_Viana.geojson" }, "geometry": { "type": "Point", "coordinates": [ -2.371596859817303, 42.514157695783737 ] } },
+{ "type": "Feature", "properties": { "id": 6, "layer": "06_Logrono", "path": "E:\/university\/Eide\/OwnProject\/CaminoFrancesProject\/web_area\/xampp\/htdocs\/website\/files\/geoJSONfiles\/orte\/06_Logrono.geojson" }, "geometry": { "type": "Point", "coordinates": [ -2.445204743400576, 42.466551333210745 ] } }
+]
+}

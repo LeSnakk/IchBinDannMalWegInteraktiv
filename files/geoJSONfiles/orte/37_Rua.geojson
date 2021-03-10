@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "44_Rua",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 37 }, "geometry": { "type": "Point", "coordinates": [ -8.350219874107413, 42.913780531583313 ] } }
+]
+}

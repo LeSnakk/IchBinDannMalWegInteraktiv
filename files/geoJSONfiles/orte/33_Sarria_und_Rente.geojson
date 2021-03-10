@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "39_Sarria_und_Rente",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 33 }, "geometry": { "type": "Point", "coordinates": [ -7.41275332531048, 42.776767108408258 ] } },
+{ "type": "Feature", "properties": { "id": 33 }, "geometry": { "type": "Point", "coordinates": [ -7.460103018850885, 42.768571820421364 ] } }
+]
+}

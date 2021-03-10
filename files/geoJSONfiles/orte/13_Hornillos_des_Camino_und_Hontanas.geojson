@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "14_Hornillos_des_Camino_und_Hontanas",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 13 }, "geometry": { "type": "Point", "coordinates": [ -3.924973658362434, 42.338261126645243 ] } },
+{ "type": "Feature", "properties": { "id": 13 }, "geometry": { "type": "Point", "coordinates": [ -3.989822678727128, 42.323485300114129 ] } },
+{ "type": "Feature", "properties": { "id": 13 }, "geometry": { "type": "Point", "coordinates": [ -4.044838065657194, 42.312713858284894 ] } }
+]
+}

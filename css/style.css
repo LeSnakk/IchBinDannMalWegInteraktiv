@@ -1,0 +1,203 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-image: url(../files/images/header_bg.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center bottom;
+}
+
+button {
+    background-color: rgba(255, 255, 255, .6);
+    border: none;
+    color: black;
+    padding: 12px 24px;
+    margin: 2px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .4s ease;
+}
+
+button:hover,
+button:focus,
+button:active {
+    background-color: #a28b74 !important;
+    color: #ffffff !important;
+}
+
+#gotomap {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 100px 100px 0 100px;
+    border-color: rgba(255, 255, 255, .6) transparent transparent transparent;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+#gotomap:before {
+    content: "Go to map";
+    position: absolute;
+    width: 100px;
+    margin-top: -80px;
+    margin-left: -48px;
+}
+
+#gotomap i {
+    font-size: 34px;
+}
+
+#header {
+    transition: opacity 2s ease-in-out;
+    position: relative;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+    padding: 1em 0 0 0;
+    height: 100vh;
+    cursor: default;
+}
+
+#header h1 {
+    font-size: 2.4em;
+}
+
+#header h2 {
+    font-size: 1.6em;
+    margin: 0 auto;
+    width: 760px;
+    max-width: 95%;
+    padding: 0 0 2em 0;
+}
+
+#header p {
+    font-weight: bold;
+}
+
+#header #audioUpload {
+    background: rgba(255, 255, 255, .6);
+    padding: 2em;
+    max-width: 100%;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.textContainer {
+    font-size: 22px;
+    background: rgba(255, 255, 255, .6);
+    padding: 1em 2em 1em 2em;
+    max-width: 100%;
+    width: 85%;
+    margin: 0 auto 50px auto;
+    text-align: center;
+}
+
+.textContainer strong{
+    display: block;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 22px;
+    padding: 0 0 20px 0;
+    text-align: center;
+}
+
+.impressum {
+    text-align: center;
+    color: white;
+}
+
+#map {
+    height: 550px;
+    border-top: 5px solid #a28b74;
+    border-bottom: 5px solid #a28b74;
+}
+
+#mapButtons {
+    text-align: center;
+    padding: 1.2em;
+}
+
+#my-roadmap li {
+    background: none;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#my-roadmap .event {
+    pointer-events: none;
+}
+
+
+#infos {
+    /*display: none;*/
+    display: block;
+    position: fixed;
+    right: -500px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    width: 100%;
+    padding: 50px 15px 15px 15px;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.9);
+    height: 100%;
+    max-width: 500px;
+    transition: all 2s ease;
+    overflow-y: auto;
+}
+
+#infos.active {
+    /*display: block;*/
+    right: 0;
+    transition: all 2s ease;
+}
+
+#infos.active iframe {
+    max-width: 100%;
+}
+
+
+#infos-close {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
+#audioPlayer, #audioTour, #audioTourFromHere {
+    visibility: hidden;
+}
+
+#audioContainer {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 130px;
+    background: transparent;
+    text-align: left;
+    margin-left: 50px;
+}
+
+#audioContainer button {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 2px;
+}
+
+#audioContainer #audioTour,
+#audioContainer #audioPlayer {
+    display: inline-block;
+    position: relative;
+    margin: 0 10px;
+    vertical-align: top;
+}

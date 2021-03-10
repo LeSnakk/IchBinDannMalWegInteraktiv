@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "31_Molinaseca_Ponferrada",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 27 }, "geometry": { "type": "Point", "coordinates": [ -6.520465593229511, 42.538030760570827 ] } },
+{ "type": "Feature", "properties": { "id": 27 }, "geometry": { "type": "Point", "coordinates": [ -6.592244041803913, 42.548871530520373 ] } }
+]
+}

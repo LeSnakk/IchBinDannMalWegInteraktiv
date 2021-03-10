@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "21_Carrion_de_los_Condes",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 15 }, "geometry": { "type": "Point", "coordinates": [ -4.611416955257913, 42.340264899215832 ] } }
+]
+}

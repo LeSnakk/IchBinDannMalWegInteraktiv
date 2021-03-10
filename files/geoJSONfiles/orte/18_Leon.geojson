@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "24_Leon",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 18 }, "geometry": { "type": "Point", "coordinates": [ -5.572346797503289, 42.598401616030849 ] } }
+]
+}

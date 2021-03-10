@@ -1,0 +1,7 @@
+{
+    "type": "FeatureCollection",
+    "name": "02_Roncesvalles",
+        "features": [
+{ "type": "Feature", "properties": { "id": 2 }, "geometry": { "type": "Point", "coordinates": [ -1.320700314538876, 43.009378247303687 ] } }
+]
+}

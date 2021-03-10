@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <title>Ich bin dann mal weg – interaktiv</title>
+    <link rel="icon" href="files/icon.png">
+    <meta charset="utf-8"/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+    <!-- Import google font "Montserrat" -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+    </style>
+
+    <script src="js/script.js"></script>
+
+    <!-- Include jQuery Roadmap Plugin -->
+    <script src="js/jquery.roadmap.js" type="text/javascript"></script>
+
+    <!-- Include jQuery Roadmap CSS -->
+    <link href="css/jquery.roadmap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" rel="stylesheet"
+          type="text/css"/>
+
+    <!--    import fontawesome library for awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/fontawesome.min.css" type="text/css"
+          rel="stylesheet">
+</head>
+
+<body>
+<section id="header">
+    <h3><b>Ich bin dann mal weg – <i>interaktiv</i></b></h3>
+    <h6>Iesus nobis dat bonum gradus</h6>
+    <br /><br />
+    <div class="textContainer" text-align="center">
+        <strong>Projektbeschreibung</strong>
+        Dieses Projekt beschäftigt sich mit der Pilgerreise Hape Kerkelings nach Santiago de Compostela. Alle hier verwendeten Informationen
+        basieren auf dem von ihm verfassten Buch "Ich bin dann mal weg" sowie dem gleichnamigen Hörbuch.<br />
+        Diese Webanwendung ermöglicht eine virtuelle Begleitung Kerkelings auf seiner Reise – sowohl synchron zum Hörbuch als auch allein.</br><br />
+        <strong>Der Weg</strong>
+        Der Camino Francés ist der beliebteste Jakbosweg Europas, der Pilgerer aus aller Welt anzieht, die sich dieser Herausforderung zu stellen.
+        Jeder verbindet andere Motive und Hoffnungen mit seiner Pilgerreise. Pilger müssen eine Strecke von ungefähr 800 km bewältigen, bei der sie bedeutsame Orte der Christenheit durchwandern.<br />
+        Die durchschnittliche Reisedauer beträgt ca. 5 Wochen.
+        <br/>
+        <br/>
+        <strong>Anwendungshinweis</strong>
+        Diese Webanwendung ist für Google Chrome optimiert. Sollten Komplikationen mit der Anwendung auftreten, können diese durch einen Reload der Seite behoben werden.
+    </div>
+    <span id="gotomap"></span>
+</section>
+
+
+<div id="audioContainer">
+    <div id="audioUpload">
+        <p><i>Für ein audiovisuelles Erlebnis kann hier das Hörbuchdateiverzeichnis angegeben werden:</i></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button id="uploadFiles" onclick="openUploadDialog()">Audios hochladen</button>
+        <input type="file" id="dateien" name="files[]" webkitdirectory mozdirectory multiple hidden/>
+        <button id="denyUpload" onclick="disableAudioUploadArea()">Ich habe keine Audios</button>
+        <div id="dateiListe"></div>
+    </div>
+    <div id="audioTour">
+        <button id="audioTourStarten" onclick="initializeAudioTour()">Audiotour starten</button>
+        <button id="audioTourFromHere" onclick="startAudioTourFromHere()">Audiotour ab hier starten</button>
+    </div>
+    <div id="audioPlayer">
+        <button id="previous" onclick="previous()">Vorheriger Titel</button>
+        <audio id="audio" controls>
+            <source src="" id="src"/>
+        </audio>
+        <button id="next" onclick="next()">Nächster Titel</button>
+    </div>
+
+    <div id="audioName"></div>
+</div>
+
+<div id="map"></div>
+
+<div id="mapButtons">
+    <!--    container for roadmap /timeline-->
+    <div id="my-roadmap"></div>
+
+    <!--    declaration and configuration of timeline-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            setTimeout(function () {
+                console.log(events);
+
+                $('#my-roadmap').roadmap(events, {
+                    eventsPerSlide: 9,
+                    slide: 1,
+                    prevArrow: '<i class="material-icons">keyboard_arrow_left</i>',
+                    nextArrow: '<i class="material-icons">keyboard_arrow_right</i>',
+                    onBuild: function () {
+                        // console.log('onBuild event')
+                    }
+                });
+
+                $(".roadmap__events li").on("click", function () {
+
+                    $('html, body').animate({
+                        scrollTop: $("#map").offset().top - 120
+                    }, 2000);
+                    $('#infos').addClass('active');
+                });
+            }, 2000);
+
+            $("#gotomap").click(function () {
+                $('html, body').animate({
+                    scrollTop: $("#audioContainer").offset().top
+                }, 2000);
+            });
+        });
+    </script>
+</div>
+
+<div id="infos"></div>
+</body>
+
+<hr>
+<div class="impressum">
+    Made by Cornelius Diefenthal and Vedatcan Şerefoğlu<br />
+    2021
+</div>
+
+</html>
