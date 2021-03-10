@@ -37,8 +37,6 @@ function readDataXML() {
             dataEintraege = Math.ceil((XMLstring.split("<etappe>").length - 1));	//Zählt anzahl der <etappe>-Tags und ermittelt die Anzahl der Einträge
             dataEigenschaften = Math.ceil(((XMLstring.split("\n").length - (2 * dataEintraege) - 3) / dataEintraege)) //Errechnet die Anzahl der dataEigenschaften
 
-            console.log("einträge: " + dataEintraege);
-            console.log("infos: " + dataEigenschaften);
             eigenschaftsarray = new Array();	//Array für die dataEigenschaften wird erstellt
 
             var reihen = xmlDoc.getElementsByTagName("etappe");
@@ -86,7 +84,7 @@ var limeIcon = L.icon({
     popupAnchor: [0, 0]
 });
 
-//
+//Karte wird initialisiert
 function createMap() {
 
     //Dateinamen der Etappen werden in ihr Array geschrieben
@@ -100,10 +98,11 @@ function createMap() {
         , "13_Hornillos_des_Camino_und_Hontanas.geojson", "14_Castrojeriz_und_Fromista.geojson", "15_Carrion_de_los_Condes.geojson", "16_Calzadilla_de_la_Cueza.geojson", "17_Sahagun.geojson", "18_Leon.geojson", "19_Leon.geojson", "20_Irgendwo_Leon_Villadangos_del_Paramo.geojson", "21_Astorga.geojson", "22_Astorga.geojson", "23_Rabanal.geojson", "24_Rabanal.geojson", "25_Foncebadon_und_El_Acebo.geojson", "26_El_Acebo.geojson", "27_Molinaseca_Ponferrada.geojson"
         , "28_Villafranca_del_Bierzo.geojson", "29_Trabadelo_und_Vega_de_Valcarce.geojson", "30_La_Faba_und_O_Cebreiro.geojson", "31_Tricastela.geojson", "32_Tricastela.geojson", "33_Sarria_und_Rente.geojson", "34_Portomarin.geojson", "35_Palas_de_Rei.geojson", "36_Castaneda.geojson", "37_Rua.geojson", "38_Santiago_de_Compostela.geojson"];
 
-
+    //Definition des maximalen Kartenbereichs
     var southWest = L.latLng(41.372686481864655, -9.876708984375002);
     var northEast = L.latLng(44.19402066387343, 0.48889160156250006);
 
+    //Kartenlayer werden zugewiesen
     var sattelite = L.tileLayer('http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}', { id: 'MapID', attribution: '&copy; <a href="https://developers.google.com/maps/documentation/javascript/maptypes">Google'});
     var terrain = L.tileLayer('http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}', { id: 'MapID',  attribution: '&copy; <a href="https://developers.google.com/maps/documentation/javascript/maptypes">Google'});
 
@@ -124,6 +123,7 @@ function createMap() {
         pointToLayer: createCustomIcon
     }
 
+    //Karte wird erstellt
     map = new L.map('map', {
         zoomControl: false,
         minZoom: 8,
@@ -136,17 +136,19 @@ function createMap() {
         "Terrain": terrain
     }
 
+    //Layerkontrollmenü
     var layers = {
         "Kartenansicht umschalten": sattelite
     };
 
-
+    //Layerkontrollmenü wird zur Karte hinzugefügt
     L.control.layers(null, layers, { position: 'topleft' }).addTo(map);
 
+    //Funktionsaufruf, um Punkte zu erstellen
     makePoints();
-
 }
 
+//Punkte werden erstellt
 function makePoints() {
     //Orte-geoJSON-Daten werden mittels der zuvor in das Array geschriebenen Dateinamen eingelesen und ins Layer "orte" überführt
     for (var i = 0; i < orteDB.length; i++) {
@@ -159,10 +161,15 @@ function makePoints() {
         };
         xhr.send();
     }
+
+    //Orte werden auf die Karte hinzugefügt
     orte = L.geoJson(locations).addTo(map);
+
+    //Funktionsaufruf, um Wege zu erstellen
     makePaths();
 }
 
+//Wege werden erstellt
 function makePaths() {
     //Etappen-geoJSON-Daten werden mittels der zuvor in das Array geschriebenen Dateinamen eingelesen und ins Layer "etappen" überführt
     for (var i = 0; i < etappenDB.length; i++) {
@@ -172,55 +179,55 @@ function makePaths() {
         xhr.onload = function () {
             if (xhr.status !== 200) return
             L.geoJSON(xhr.response).addTo(etappen).on('click', onClick);
-            ;
         };
         xhr.send();
     }
+
+    //Wege werden auf die Karte hinzugefügt
     etappen = L.geoJson(etappen).addTo(map);
 }
 
-
+//Funktion, die die Informationen aus dem XML-Dokument aufgrund der Parameter 'Index des Eintrags' sowie 'Index der Eigenschaft' zurückgibt
 function printText(eintragNO, eigenschaftsNO) {
     return (xmlDoc.getElementsByTagName(eigenschaftsarray[eigenschaftsNO])[eintragNO].childNodes[0].nodeValue); //eigenschaft | eintrag
 }
 
-//when clicked on map marker or map path:
+//Wenn auf einen Marker oder Weg geklickt wird
 function onClick(e) {
     var style = e.layer.feature.geometry.type;
     var id = e.layer.feature.properties.id;
-    console.log(id);
+
+    //Wenn das Element ein Marker ist, Markerfunktion starten
     if (style == "Point") {
         audiotour = false;
-        console.log(audiotour);
         markerClick(--id);
+
+    //Wenn das Element kein Marker ist, Wegfunktion starten
     } else {
         audiotour = false;
         pathClick(id);
     }
 }
 
-//when clicked on timeline (location button):
-function getButtonId(e) {       //https://stackoverflow.com/questions/4825295/javascript-onclick-to-get-the-id-of-the-clicked-button
-    console.log("test");
-    console.log(e);
-    // e = window.event;
-    // if (e !== "undefined") {
-    //     e = e.srcElement;
+//Wenn auf die Timeline geklickt wird
+function getButtonId(e) {
     lastClickedButton = $(e).data('audioid'); // made jQuery object of js object
-    console.log("LCB" + lastClickedButton);
     if (audioEnabled) {
         document.getElementById("audioPlayer").style.visibility = "visible";        //Zeige Audioplayer
         document.getElementById("audioTourFromHere").style.visibility = "visible";  //Zeige Audiosta
         passAudio($(e).data('audioid'));     //Übergibt der Audioplayerinitialisierungsfunktion, welches Audio initialisiert werden soll
     }
+
+    //Funktionsaufruf, um alle Marker zu resetten
     resetMarker(e.id);
 
+    //Funktionsaufruf, um die korrekten Informationen aus dem XML-Dokument abzurufen
     displayInfo(e.id);
-    // }
 }
 
+//Funktion, die für das Blättern durch die Timeline zuständig ist
 function changeTimeLinePage(mID, firstId) {
-    console.log("changin: " + mID + ",  " + firstId);
+    //console.log("changin: " + mID + ",  " + firstId);
     if (firstId <= mID) {
         $('.roadmap__navigation .next').click();
         setTimeout(function () {
@@ -236,6 +243,7 @@ function changeTimeLinePage(mID, firstId) {
 
 var markerState = 0;
 
+//Funktionsverweis: Wenn auf einen Marker geklickt wird, wird der dazugehörige Timelineeintrag angewählt
 function markerClick(mID) {
 
     if ($('.roadmap__events #' + mID).length > 0) {
@@ -246,6 +254,7 @@ function markerClick(mID) {
     }
 }
 
+//Funktionsverweis: Wenn auf einen Weg geklickt wird, wird der dazugehörige Timelineeintrag angewählt
 function pathClick(pID) {
     if ($('.roadmap__events #' + pID).length > 0) {
         buttonClick(pID);
@@ -257,18 +266,17 @@ function pathClick(pID) {
 
 //Klickt den durch die ID "bID" gewünschten Button/Timelineeintrag
 function buttonClick(bID) {
-    markerState = 0;        //???
+    markerState = 0;
     document.getElementById(bID).click();
 }
 
-//Ruft die Funktion auf, die die Icons der ausgewählten Marker verändert. Je nach Etappe können dies mehrere Marker sein
+//Ruft die Funktion auf, die die Icons der ausgewählten Marker verändert
 function changeMarker(ID) {
     changeIconOfMarker(ID);
 }
 
 //Ruft die Funktion auf, die die Ansicht bewegt sowie den ausgewählten Wegabschnitt hervorhebt
 function changeView(ID) {
-    console.log("XXXX " + ID);
     if (ID == 0) {
         unColorPath();
         moveViewLocation();
@@ -288,7 +296,8 @@ function resetMarker(ID) {
             }
         });
     }
-    changeMarker(ID); //...der ausgewählte Marker erhält ein anderes Icon
+    //der ausgewählte Marker erhält ein anderes Icon
+    changeMarker(ID); 
 }
 
 //Ändert das Icon eines durch "wantedId" ausgewählten Markers 
@@ -300,12 +309,15 @@ function changeIconOfMarker(ID) {
             orte.setIcon(limeIcon);
         }
     });
-    changeView(ID);   //Fokussiert die Ansicht auf den ausgewählten Kartenbereich
+    //Fokussiert die Ansicht auf den ausgewählten Kartenbereich
+    changeView(ID);
 }
 
 //Ändert die Ansicht, so dass der ausgewählte Weg im Fokus liegt.
 function moveView(ID) {
-    map.fitBounds(etappen.getLayers()[ID].getBounds(), map.getZoom(), {     //Es werden die Grenzen des Weges ermittelt und die Ansicht an jene angepasst
+
+    //Es werden die Grenzen des Weges ermittelt und die Ansicht an jene angepasst
+    map.fitBounds(etappen.getLayers()[ID].getBounds(), map.getZoom(), {     
         "animate": true,
         "pan": {
             "duration": 2
@@ -313,7 +325,7 @@ function moveView(ID) {
     });
 }
 
-//Ändert die Ansicht, so dass der ausgewählte Ort im Fokus liegt (identisches Prinzip wie "moveView()")
+//Ändert die Ansicht, so dass der erste Ort im Fokus liegt
 function moveViewLocation() {
     map.flyTo([43.163366597984691, -1.23770909753465], 15, {
         "animate": true,
@@ -321,25 +333,26 @@ function moveViewLocation() {
     });
 }
 
+//Ausgewählter Weg wird farblich hervorgehoben
 function colorPath(ID) {
     etappen.getLayers()[ID].setStyle({ color: "#00ffa5" });
     moveView(ID);
 }
 
+//Setzt den Weg auf eine Standardfarbe zurück
 function unColorPath() {
     etappen.getLayers().forEach(etappe => etappe.setStyle({ color: "#3388ff" }));
 }
 
+//Die Informationen zum jeweiligen Ort/Weg werden abgerufen
 function displayInfo(buttonID) {
     lastClickedButton = buttonID;
+
+    //street view is retained with CDATA element https://stackoverflow.com/questions/4412395/is-it-possible-to-insert-html-content-in-xml-document
     document.getElementById("infos").innerHTML = "<div id=\"infos-close\"><i class=\"fa fa-cross\"></i></div>";
-
     for (var i = 1; i < eigenschaftsarray.length; i++) {
-        document.getElementById("infos").innerHTML += (printText(buttonID, i) + "<br />");
-        //street view is retained with CDATA element https://stackoverflow.com/questions/4412395/is-it-possible-to-insert-html-content-in-xml-document
+        document.getElementById("infos").innerHTML += (printText(buttonID, i) + "<br />");  
     }
-
-
     $('#infos-close').on("click", function () {
         $('#infos').removeClass('active');
     })
@@ -363,7 +376,6 @@ function initializeAudioInput(evt) {
     audioEnabled = true;    //User wünscht Audio
     if (lastClickedButton != null) {    //Wenn Audios nachträglich hochgeladen werden, wird der Player hier erneut aufgerufen
         document.getElementById("audioTourFromHere").style.visibility = "visible";
-        console.log("PAAATH" + lastClickedButton);
         document.getElementById(lastClickedButton).click()
     }
 
@@ -374,8 +386,6 @@ function initializeAudioInput(evt) {
     }
     document.getElementById("audioUpload").innerHTML = "<p><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Audios hochgeladen.</i></p>";
     document.getElementById("audioTour").style.visibility = "visible";
-    //document.getElementById("audioUpload").style.visibility = "hidden"
-    //document.getElementById('dateiListe').innerHTML = '<ul>' + fragmente.join('') + '</ul>';
 }
 
 //Initialisiert den Audioplayer mit der durch die "ID" gewünschten Audiodatei
@@ -407,15 +417,18 @@ function initializeAudioTour() {
 //Audiotourcontroller
 function startAudioTourWithThis(tracknumber) {
     setTimeout(function () {
-        console.log("playing with: " + tracknumber);
-        // document.getElementsByClassName(tracknumber)[0].click()     //Wählt Etappe aus
-        $("[data-audioid='" + tracknumber + "']").click(); //Wählt Etappe aus über audioid Attribut - Neu
-        document.getElementById("audio").play();        //Startet das Audio
+
+        //Wählt Etappe aus über audioid Attribut
+        $("[data-audioid='" + tracknumber + "']").click(); 
+
+        //Startet das Audio
+        document.getElementById("audio").play();        
 
         document.getElementById("audio").onended = function () {
             if (audiotour) {
-                console.log(audiotour);
-                startAudioTourWithThis(++tracknumber);      //Wenn das Audio zuende ist, wird die nächste Etappe gespielt
+
+                //Wenn das Audio zuende ist, wird die nächste Etappe gespielt
+                startAudioTourWithThis(++tracknumber);      
             }
         }
     }, 400)
@@ -424,10 +437,12 @@ function startAudioTourWithThis(tracknumber) {
 //Die Audiotour kann von einer beliebigen Stelle aus gestartet werden
 function startAudioTourFromHere() {
     audiotour = true;
-    console.log("startAudioFrom:" + currentAudioID);
-    startAudioTourWithThis(currentAudioID);     //Startet die Audiotour ab der aktuellen Position
+
+    //Startet die Audiotour ab der aktuellen Position
+    startAudioTourWithThis(currentAudioID);     
 }
 
+//Die Audiotour wird beendet. Kontrollboolesche wird dafür false gesetzt
 function endAudioTour() {
     document.getElementById("audio").stop();
     audiotour = false;

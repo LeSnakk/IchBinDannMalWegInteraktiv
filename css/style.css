@@ -43,7 +43,7 @@ button:active {
 }
 
 #gotomap:before {
-    content: "Go to map";
+    content: "Zur Karte";
     position: absolute;
     width: 100px;
     margin-top: -80px;
