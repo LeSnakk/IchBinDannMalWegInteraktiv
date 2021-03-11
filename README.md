@@ -13,7 +13,7 @@ Ferner besteht die Möglichkeit, eine "Audiotour" zu bestreiten. Dabei spielt di
 Die Audiodateien müssen, insbesondere bei der Verwendung von Google Chrome, namentlich chronologisch benannt vorliegen.
 
 ## Verwendung
-Die Webanwendung muss auf einem Webserver gehostet werden. Dafür bietet sich bspw. die Freeware <a href="https://www.apachefriends.org/de/index.html">XAMPP</a> an.
+Die Webanwendung muss auf einem Webserver gehostet werden. Dafür bietet sich bspw. die Freeware <a href="https://www.apachefriends.org/de/index.html">XAMPP</a> an. Ferner wird Google Chrome als Browser empfohlen.
 
 
 ## Where? When? Why?
